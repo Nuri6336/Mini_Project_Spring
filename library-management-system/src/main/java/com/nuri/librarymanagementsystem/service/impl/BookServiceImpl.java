@@ -88,6 +88,8 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new CustomException("Provide valid BookId"));
         BorrowedBookEntity borrowedBook = borrowedBookRepository.findByBookEntityAndStatus(book, "occupied")
                 .orElseThrow(() -> new CustomException("You can borrow the book as it is available"));
+        ReserveEntity reserveEntity = reserveRepository.findByUserEntityAndBookEntity(userEntity, book)
+                .orElseThrow(() -> new CustomException("You have no reservation of this book"));
 
         ReserveEntity reserveEntity = new ReserveEntity();
         reserveEntity.setBookEntity(book);
