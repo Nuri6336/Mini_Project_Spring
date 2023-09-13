@@ -11,4 +11,6 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, Integer>
 
     Optional<ReserveEntity> findByUserEntityAndBookEntity(UserEntity userEntity, BookEntity bookEntity);
 
+    Optional<ReserveEntity> findByBookEntity(BookEntity bookEntity);
+
 }
