@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -128,7 +129,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         else {
             BorrowedBookEntity borrowedBookEntity = new BorrowedBookEntity();
-            borrowedBookEntity.setBorrowedDate(new Date((System.currentTimeMillis())));
+            borrowedBookEntity.setBorrowedDate(LocalDate.now());
             borrowedBookEntity.setDueDate(null);
             borrowedBookEntity.setStatus("occupied");
             borrowedBookEntity.setUserEntity(userEntity);
@@ -143,7 +144,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         BorrowedBookEntity borrowedBookChecked = borrowedBookRepository.findByBookEntityAndStatus(book, "occupied").orElseThrow(() -> new CustomException("Already in the store"));
         BorrowedBookEntity borrowedBook = borrowedBookRepository.findByBookEntity(book);
-        borrowedBook.setDueDate(new Date(System.currentTimeMillis()));
+        borrowedBook.setDueDate(LocalDate.now());
         borrowedBook.setStatus("returned");
     }
 

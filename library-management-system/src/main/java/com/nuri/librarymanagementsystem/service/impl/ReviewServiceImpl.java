@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewEntity reviewEntity = new ReviewEntity();
         reviewEntity.setReview(reviewDto.getReview());
         reviewEntity.setRatings(reviewDto.getRatings());
-        reviewEntity.setReviewTime(new Date(System.currentTimeMillis()));
+        reviewEntity.setReviewTime(LocalDate.now());
         reviewEntity.setBookEntity(book);
         reviewEntity.setUserEntity(userEntity);
         reviewRepository.save(reviewEntity);
@@ -66,7 +67,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         existingReview.setReview(reviewDto.getReview());
         existingReview.setRatings(reviewDto.getRatings());
-        existingReview.setReviewTime(new Date(System.currentTimeMillis()));
+        existingReview.setReviewTime(LocalDate.now());
 
         reviewRepository.save(existingReview);
     }

@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -88,12 +89,12 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new CustomException("Provide valid BookId"));
         BorrowedBookEntity borrowedBook = borrowedBookRepository.findByBookEntityAndStatus(book, "occupied")
                 .orElseThrow(() -> new CustomException("You can borrow the book as it is available"));
-        ReserveEntity reserveEntity = reserveRepository.findByUserEntityAndBookEntity(userEntity, book)
+        ReserveEntity reserveEntityExist = reserveRepository.findByUserEntityAndBookEntity(userEntity, book)
                 .orElseThrow(() -> new CustomException("You have no reservation of this book"));
 
         ReserveEntity reserveEntity = new ReserveEntity();
         reserveEntity.setBookEntity(book);
-        reserveEntity.setReservationDate(new Date(System.currentTimeMillis()));
+        reserveEntity.setReservationDate(LocalDate.now());
         reserveEntity.setUserEntity(userEntity);
         reserveRepository.save(reserveEntity);
     }

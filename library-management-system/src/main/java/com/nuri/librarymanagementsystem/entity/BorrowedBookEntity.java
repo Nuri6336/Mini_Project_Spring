@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -21,12 +22,8 @@ public class BorrowedBookEntity {
     private Integer id;
     private String status;
 
-    @Temporal(TemporalType.DATE)
-    private Date borrowedDate;
-    @Temporal(TemporalType.DATE)
-    private Date dueDate;
-
-
+    private LocalDate borrowedDate;
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

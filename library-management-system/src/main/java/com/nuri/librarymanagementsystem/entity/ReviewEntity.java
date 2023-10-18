@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -22,8 +23,7 @@ public class ReviewEntity {
     private String review;
     private Double ratings;
 
-    @Temporal(TemporalType.DATE)
-    private Date reviewTime;
+    private LocalDate reviewTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

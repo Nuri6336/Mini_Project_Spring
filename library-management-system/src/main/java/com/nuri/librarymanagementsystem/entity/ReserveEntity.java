@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -20,8 +21,7 @@ public class ReserveEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Temporal(TemporalType.DATE)
-    private Date reservationDate;
+    private LocalDate reservationDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

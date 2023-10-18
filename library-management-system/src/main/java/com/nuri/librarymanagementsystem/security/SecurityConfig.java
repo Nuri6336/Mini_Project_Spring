@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfig {
             throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->{
                     auth
@@ -40,7 +42,7 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.GET,"/users/history").hasRole("CUSTOMER")
                             .requestMatchers(HttpMethod.GET,"/users/{userId}").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET,"/users/{userId}/books").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.GET,"/users/{userId}/borrowed-books").hasAnyRole("ADMIN","CUSTOMER")
+                            .requestMatchers(HttpMethod.GET,"/users/{userId}/borrowed-books").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/books/create").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.PUT,"/books/update").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.DELETE,"/books/delete").hasRole("ADMIN")

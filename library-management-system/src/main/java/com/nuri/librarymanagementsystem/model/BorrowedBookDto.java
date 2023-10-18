@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -14,6 +15,6 @@ import java.util.Date;
 public class BorrowedBookDto {
 
     private Integer id;
-    private Date borrowedDate;
-    private Date dueDate;
+    private LocalDate borrowedDate;
+    private LocalDate dueDate;
 }
